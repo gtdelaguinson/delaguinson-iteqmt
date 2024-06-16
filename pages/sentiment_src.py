@@ -4,32 +4,37 @@ import streamlit as st
 st.header('Simple Sentiment Analyzer App')
 st.subheader('This python code is implemented for Streamlit')
 st.code('''
-        import streamlit as st
-        import pandas as pd
-        import pickle
-        from nltk.corpus import names
+       import streamlit as st
 
-        st.title("A Simple Sentiment Analyzer")
-        message = st.text_input("Tell me what you feel today: ")
+st.title("Sentiment Analyzer")
 
-        # Load the trained Naive Bayes classifier from the saved file
-        filename = 'pages/sentimentAnalyzerTest_model.sav'
-        loaded_model = pickle.load(open(filename, 'rb'))
+# Sidebar inputs
+name = st.sidebar.text_input("What's your name?", "Anonymous")
+message = st.sidebar.text_area("Tell me what you feel today:")
 
-        # Define features (words) and their corresponding labels (positive/negative)
-        def word_features(words):
-            return dict([(word, True) for word in words])
+# Define lists of positive and negative words
+positive_words = ['good', 'excited', 'happy', 'great', 'fantastic', 'wonderful']
+negative_words = ['bad', 'sad', 'angry', 'terrible', 'awful', 'miserable']
 
-        message_tone = loaded_model.classify(word_features(message.split()))
+# Function to classify the sentiment and display a message
+def classify_sentiment(message):
+    st.write(f"Hi, {name}!")
+    words = message.lower().split()
+    if any(word in positive_words for word in words):
+        st.write("That's good! :smile:")
+    elif any(word in negative_words for word in words):
+        st.write("I hope you feel better soon. :disappointed:")
+    else:
+        st.write("Keep going! :neutral_face:")
 
-        # make a function for your button click
+# Display results when button is clicked
+if st.sidebar.button('Say it'):
+    classify_sentiment(message)
 
-        def sayFeeling():
-            # Classify the sentiment
-            if message_tone == 'positive':
-                st.write("this is :smile:")
-            else:
-                st.write("this is :disappointed:")
-                
-        st.button('Say it', on_click=sayFeeling)
+# Notes and instructions
+st.sidebar.markdown("---")
+st.sidebar.markdown("### Notes")
+st.sidebar.markdown("Before running the app, install Streamlit using: `pip install streamlit`")
+st.sidebar.markdown("To run the app, use the following command in the terminal:")
+st.sidebar.code("streamlit run streamlit_test.py")
     ''')
