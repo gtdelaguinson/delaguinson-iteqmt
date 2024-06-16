@@ -1,40 +1,35 @@
 import streamlit as st
 import pandas as pd
 import pickle
+from nltk.corpus import names
 
 # Load the trained Naive Bayes classifier from the saved file
-filename = 'pages/new_predict.sav'
-try:
-    with open(filename, 'rb') as file:
-        loaded_model = pickle.load(file)
-except FileNotFoundError:
-    st.error(f"Model file not found: {filename}")
-    loaded_model = None
-except Exception as e:
-    st.error(f"Error loading the model: {e}")
-    loaded_model = None
+filename = 'pages/crop_recom_model.sav'
+loaded_model = pickle.load(open(filename, 'rb'))
 
-# Function to predict laptop brand
-def predict_brand(features):
-    if loaded_model is not None:
-        # Assuming loaded_model.predict() returns the predicted brand
-        brand_name = loaded_model.predict([features])[0]
-        st.text(f"The predicted brand is {brand_name}")
+# Function to predict crop based on input NPK levels
+def predict_crop(n_input, p_input, k_input):
+    if n_input == 0 and p_input == 0 and k_input == 0:
+        return ""  # Return empty string if all inputs are zero
     else:
-        st.text("Model is not loaded.")
+        # Predict using the loaded model
+        crop_name = loaded_model.predict([[n_input, p_input, k_input]])
+        return crop_name[0]  # Return the predicted crop name
 
 # Streamlit app
-st.title("Laptop Brand Predictor")
-st.subheader("Enter features to predict the laptop brand:")
+st.title("Crop Recommendation Predictor 😊")
+st.subheader("Enter a set of NPK levels to determine the best crop:")
 
-# Slider inputs for features
-price_input = st.slider("Price:", 0.0, 20000.0)
-rating_input = st.slider("Rating:", 0.0, 20.0)
-ram_input = st.slider("RAM (GB):", 0, 32)
+# Input sliders for NPK levels
+n_input = st.slider("Nitrogen", 0, 500)
+p_input = st.slider("Phosphorus", 0, 500)
+k_input = st.slider("Potassium", 0, 500)
 
-# Button to trigger prediction
-if st.button("Predict Brand"):
-    features = [price_input, rating_input, ram_input]
-    predict_brand(features)
+# Predicting the crop
+crop_name = predict_crop(n_input, p_input, k_input)
 
-st.text("The predicted brand will be displayed above.")
+# Display the predicted crop name
+st.text("The crop suitable for this NPK level:")
+st.text_area(label="", value=crop_name, height=1)
+
+# Note: No need for st.cache_data decorator here as we are not caching the function predict_crop itself
