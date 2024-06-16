@@ -4,15 +4,16 @@ from io import BytesIO
 from img2vec_pytorch import Img2Vec
 import streamlit as st
 
-st.set_page_config(layout="wide", page_title="Color Image Classification")
+st.set_page_config(layout="wide", page_title="Image Classification for Foods")
 
-st.write("## Image Classification Model for Colors")
+st.write("## Image Classification Model for Foods")
+st.write(":grin: Predicting food categories from uploaded images :grin:")
 st.sidebar.write("## Upload and download :gear:")
 
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 # Load the pre-trained model
-with open('pages/model_needs_npk.p', 'rb') as f:
+with open('/content/model_needs_npk.p', 'rb') as f:
     model = pickle.load(f)
 
 img2vec = Img2Vec()
