@@ -71,7 +71,7 @@ Feel free to express yourself and see how the Sentiment Analyzer responds!
    
 """, unsafe_allow_html=True)
 
-st.image("./food_prediction.png")
+st.image("./IMAGE.png")
 st.markdown("""
 This web application leverages a machine learning model to classify uploaded images based on food categories. Using a pre-trained model, it analyzes features extracted from images to predict and display the category of food depicted.
 
