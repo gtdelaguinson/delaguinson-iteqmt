@@ -9,12 +9,13 @@ Y = data ['brand']
 model = RandomForestClassifier(n_estimators=100)
 model.fit(X, Y)
 
-filename = 'pages/predict.sav'
-pickle.dump(model, open(filename,'wb'))
+model_filename = 'pages/predict.sav'
+os.makedirs(os.path.dirname(model_filename), exist_ok=True)
+pickle.dump(model, open(model_filename, 'wb')) 
 
 import pickle
 
-filename = '/pages/predict.sav'  # Make sure this path is correct
+model_filename = 'pages/predict.sav'  # Ensure the correct path
 loaded_model = pickle.load(open(model_filename, 'rb'))
 
 features = [150,20000,25]
@@ -26,8 +27,8 @@ import pandas as pd
 import pickle
 
 # Load the trained model/content/drive/MyDrive/Dataset/laptops.csv
-filename = '/pages/predict.sav'  # Make sure this path is correct
-loaded_model = pickle.load(open(filename, 'rb'))
+model_filename = 'pages/predict.sav'  # Ensure the correct path
+loaded_model = pickle.load(open(model_filename, 'rb'))
 
 # Function to predict laptop brand
 def predict_brand(features):
