@@ -30,11 +30,10 @@ except Exception as e:
 img2vec = Img2Vec()
 
 # Function to classify uploaded image
-@st.cache(allow_output_mutation=True)
 def classify_image(upload):
     image = Image.open(upload)
     st.write("### Image to be predicted:")
-    st.image(image)
+    st.image(image, use_column_width=True)  # Display image with dynamic width
 
     st.write("### Predicted Category:")
     try:
