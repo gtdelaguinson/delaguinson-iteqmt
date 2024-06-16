@@ -17,7 +17,7 @@ except Exception as e:
 # Function to predict crop based on input NPK levels
 def predict_crop(n_input, p_input, k_input):
     if n_input == '' or p_input == '' or k_input == '':
-        return "Please enter values for all NPK levels."  # Informative message for empty input
+        return "Enter Nitrogen, Phosphorus, and Potassium:"  
     else:
         try:
             # Predict using the loaded model
@@ -30,8 +30,7 @@ def predict_crop(n_input, p_input, k_input):
             return f"Prediction error: {e}"
 
 # Streamlit app
-st.title("Crop Recommendation Predictor 😊")
-st.subheader("Enter NPK levels to determine the best crop:")
+st.title("Crop Predictor")
 
 # Input fields for NPK levels
 n_input = st.text_input("Nitrogen", "")
