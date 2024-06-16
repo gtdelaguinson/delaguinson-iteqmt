@@ -41,7 +41,6 @@ I am a curious and compassionate individual who loves to explore new ideas and c
 ### Overview""", unsafe_allow_html=True)
 
 
-st.image("./IMAGE2.png")
 
 
 
