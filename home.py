@@ -6,7 +6,7 @@ show_pages(
     [   
         Page("home.py",),
         Section("Applications"),
-        Page("pages/prediction.py", "Prediction", "1️⃣", in_section=True),
+        Page("pages/crop_recom_streamlitapp.py", "Prediction", "1️⃣", in_section=True),
         Page("pages/basic_sentiment_analyzer.py", "Sentiment Analysis", "2️⃣", in_section=True),
         Page("pages/img_classification.py", "Image Classification", "3️⃣", in_section=True),
 
