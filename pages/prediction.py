@@ -15,7 +15,7 @@ pickle.dump(model, open(filename,'wb'))
 import pickle
 
 filename = '/pages/predict.sav'  # Make sure this path is correct
-loaded_model = pickle.load(open(filename, 'rb'))
+loaded_model = pickle.load(open(model_filename, 'rb'))
 
 features = [150,20000,25]
 predicted_team = loaded_model.predict([features])
