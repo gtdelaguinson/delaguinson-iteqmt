@@ -14,7 +14,7 @@ from io import BytesIO
 import base64
 
 
-with open('pages/sky_condition_model.p', 'rb') as f:
+with open('pages/model_needs_npk.p', 'rb') as f:
     model = pickle.load(f)
 
 img2vec = Img2Vec()
@@ -22,11 +22,11 @@ img2vec = Img2Vec()
 
 
 ## Streamlit Web App Interface
-st.set_page_config(layout="wide", page_title="Image Classification for Weather")
+st.set_page_config(layout="wide", page_title="Image Classification for color")
 
-st.write("## Let's try to see what weather is in the image!")
+st.write("## Let's try to see what color is in the image!")
 st.write(
-    ":grin: We'll try to predict the weather depicted in your uploaded image :grin:"
+    ":grin: We'll try to predict the color depicted in your uploaded image :grin:"
 )
 st.sidebar.write("## Upload and download :gear:")
 
@@ -68,6 +68,6 @@ if my_upload is not None:
     else:
         fix_image(upload=my_upload)
 else:
-    st.write("by koalatech...")
+    st.write("by Giessa Delaguinson...")
     # fix_image("./zebra.jpg")
     ''')
