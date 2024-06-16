@@ -10,11 +10,6 @@ show_pages(
         Page("pages/basic_sentiment_analyzer.py", "Sentiment Analysis", "2️⃣", in_section=True),
         Page("pages/img_classification.py", "Image Classification", "3️⃣", in_section=True),
 
-
-        Section("Source Codes"),
-        Page("pages/crop_src.py", "Prediction Source", "1️⃣", in_section=True),
-        Page("pages/sentiment_src.py", "Sentiment Analysis Source", "2️⃣", in_section=True),
-        Page("pages/image_classification_src.py", "Image Classification Source", "3️⃣", in_section=True),
 ]
 )
 
@@ -23,14 +18,18 @@ show_pages(
 st.markdown("""
 
 ##### 👨‍🎓About Me:
-At 22, I'm a student at Carlos Hilado Memorial State University, 
-studying for a Bachelor of Science in Information Systems. I chose 
-this path because I've always loved tinkering with computers. From 
-coding to problem-solving, I find it all fascinating. As I progress 
-through my studies, I'm excited to learn more about databases, 
-programming languages, and network systems. I believe that with 
-dedication and a love for learning, I can turn my passion for technology 
-into a rewarding career.          
+
+Hello! I'm Chena Bajillo, a 21-year-old residing in Talisay City, Philippines. As the youngest of five siblings, 
+my life is enriched by family bonds and the lessons learned from growing up in a close-knit environment.
+
+Being the youngest in a large family has shaped my values of compassion, 
+resilience, and the importance of mutual support. My siblings have been 
+both mentors and role models, guiding me as I navigate through life's 
+challenges.
+
+Currently pursuing BSIS. These pursuits not only bring me joy but also fuel my aspirations 
+for personal and professional growth.
+     
 
 ### 💾 Machine Learning
 
