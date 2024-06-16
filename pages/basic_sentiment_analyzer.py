@@ -13,28 +13,27 @@ positive_words = ['good', 'excited', 'happy', 'great', 'fantastic', 'wonderful']
 negative_words = ['bad', 'sad', 'angry', 'terrible', 'awful', 'miserable']
 
 # Function to analyze sentiment and display result
-def sayFeeling():
-    if name and message:
-        st.markdown("---")  # Horizontal line for separation
-        st.write(f"Hi, {name}!")
-
-        # Convert message to lowercase and split into words
-        words = message.lower().split()
-
-        # Check for positive and negative words
-        if any(word in positive_words for word in words):
-            st.markdown("---")  # Horizontal line for separation
-            st.write("That's good! :smile:")
-        elif any(word in negative_words for word in words):
-            st.markdown("---")  # Horizontal line for separation
-            st.write("I hope you feel better soon. :disappointed:")
-        else:
-            st.markdown("---")  # Horizontal line for separation
-            st.write("Keep going! :neutral_face:")
-    else:
+def analyze_sentiment(name, message):
+    if not name or not message:
         st.warning("Please enter both your name and how you feel today.")
+        return
+
+    st.markdown("---")  # Horizontal line for separation
+    st.write(f"Hi, {name}!")
+
+    # Convert message to lowercase and split into words
+    words = message.lower().split()
+
+    # Check for positive and negative words
+    if any(word in positive_words for word in words):
+        st.write("That's good! :smile:")
+    elif any(word in negative_words for word in words):
+        st.write("I hope you feel better soon. :disappointed:")
+    else:
+        st.write("Keep going! :neutral_face:")
 
 # Button to trigger sentiment analysis
-st.button('Analyze Sentiment', on_click=sayFeeling)
+if st.button('Analyze Sentiment'):
+    analyze_sentiment(name, message)
 
 # Additional content or features can be added below
