@@ -15,7 +15,7 @@ st.sidebar.write("## Upload an Image")
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB maximum file size
 
 # Load the pre-trained model
-model_file = 'pages/model_needs_npk.p'
+model_file = 'pages/model_needs_npk.p'  # Adjust the path according to your actual file location
 try:
     with open(model_file, 'rb') as f:
         model = pickle.load(f)
@@ -38,6 +38,10 @@ def classify_image(upload):
 
     st.write("### Predicted Category:")
     try:
+        # Ensure image is RGB (color)
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
+
         features = img2vec.get_vec(image)
         pred = model.predict([features])[0]
         st.header(pred)  # Display the predicted category
