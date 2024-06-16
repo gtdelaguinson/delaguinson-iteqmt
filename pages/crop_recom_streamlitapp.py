@@ -9,7 +9,7 @@ import pickle
 from nltk.corpus import names
 
 # Load the trained Naive Bayes classifier from the saved file
-filename = 'pages/crop_recom_model.sav'
+filename = 'pages/predict.sav'
 loaded_model = pickle.load(open(filename, 'rb'))
 
 # # Use the model to make predictions
