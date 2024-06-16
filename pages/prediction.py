@@ -9,7 +9,7 @@ Y = data ['brand']
 model = RandomForestClassifier(n_estimators=100)
 model.fit(X, Y)
 
-filename = '/pages/predict.sav'
+filename = 'predict.sav'
 pickle.dump(model, open(filename,'rb'))
 
 import pickle
