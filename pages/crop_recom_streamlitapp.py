@@ -9,18 +9,19 @@ try:
         loaded_model = pickle.load(file)
 except FileNotFoundError:
     st.error(f"Model file not found: {filename}")
-    loaded_model = None
+    st.stop()
 except Exception as e:
     st.error(f"An error occurred while loading the model: {e}")
-    loaded_model = None
+    st.stop()
 
 # Function to predict laptop brand
 def predict_brand(features):
     if loaded_model is not None:
+        # Assuming loaded_model is a classifier
         brand_name = loaded_model.predict([features])[0]
-        st.text(f"The predicted brand is {brand_name}")
+        st.success(f"The predicted brand is {brand_name}")
     else:
-        st.text("Model is not loaded.")
+        st.warning("Model is not loaded.")
 
 # Streamlit app
 st.title("Laptop Brand Predictor")
