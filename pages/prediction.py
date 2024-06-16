@@ -15,7 +15,7 @@ pickle.dump(model, open(filename,'wb'))
 import pickle
 
 filename = '/pages/predict.sav'  # Make sure this path is correct
-loaded_model = pickle.load(open(filename, 'rb'))
+loaded_model = pickle.load(open(filename, 'wb'))
 
 features = [150,20000,25]
 predicted_team = loaded_model.predict([features])
@@ -27,7 +27,7 @@ import pickle
 
 # Load the trained model/content/drive/MyDrive/Dataset/laptops.csv
 filename = '/pages/predict.sav'  # Make sure this path is correct
-loaded_model = pickle.load(open(filename, 'rb'))
+loaded_model = pickle.load(open(filename, 'wb'))
 
 # Function to predict laptop brand
 def predict_brand(features):
