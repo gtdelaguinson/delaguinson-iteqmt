@@ -18,7 +18,7 @@ img2vec = Img2Vec()
 ## Streamlit Web App Interface
 st.set_page_config(layout="wide", page_title="Image Classification for Color")
 
-st.write("## Let's try to see whatcolor is in the image!")
+st.write("## Let's try to see what color is in the image!")
 st.write(
     ":grin: We'll try to predict the color depicted in your uploaded image :grin:"
 )
