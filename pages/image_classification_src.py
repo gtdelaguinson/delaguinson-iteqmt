@@ -5,69 +5,64 @@ st.header('Image Classification App')
 st.subheader('This python code is implemented for Streamlit')
 st.code('''
 import pickle
+from PIL import Image
 from img2vec_pytorch import Img2Vec
-from PIL import Image
 import streamlit as st
-# from rembg import remove
-from PIL import Image
-from io import BytesIO
-import base64
 
+# Setting page configuration
+st.set_page_config(layout="wide", page_title="Image Classification for Colors")
 
-with open('pages/model_needs_npk.p', 'rb') as f:
-    model = pickle.load(f)
+# Title and description
+st.write("## Image Classification Model for Colors")
+st.write(":grin: Predicting food categories from uploaded images :grin:")
 
+# Sidebar for uploading images
+st.sidebar.write("## Upload an Image")
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB maximum file size
+
+# Load the pre-trained model
+model_file = 'pages/model_needs_npk.p'  # Adjust the path according to your actual file location
+try:
+    with open(model_file, 'rb') as f:
+        model = pickle.load(f)
+except FileNotFoundError:
+    st.error(f"Model file '{model_file}' not found. Please make sure the file exists.")
+    st.stop()
+except Exception as e:
+    st.error(f"Error loading the model: {str(e)}")
+    st.stop()
+
+# Initialize Img2Vec
 img2vec = Img2Vec()
 
-
-
-## Streamlit Web App Interface
-st.set_page_config(layout="wide", page_title="Image Classification for Color")
-
-st.write("## Let's try to see what color is in the image!")
-st.write(
-    ":grin: We'll try to predict the color depicted in your uploaded image :grin:"
-)
-st.sidebar.write("## Upload and download :gear:")
-
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
-
-# Download the fixed image
-# @st.cache_data 
-def convert_image(img):
-    buf = BytesIO()
-    img.save(buf, format="jpg")
-    byte_im = buf.getvalue()
-    return byte_im
-
-# @st.cache_data 
-def fix_image(upload):
+# Function to classify uploaded image
+def classify_image(upload):
     image = Image.open(upload)
-    col1.write("Image to be predicted :camera:")
-    col1.image(image)
+    st.write("### Image to be predicted:")
+    st.image(image, use_column_width=True)  # Display image with dynamic width
 
-    # fixed = remove(image)
-    col2.write("Category :wrench:")
-    # image_path = './example/rain.jpeg'
-    img = Image.open(my_upload)
-    features = img2vec.get_vec(img)
-    pred = model.predict([features])
+    st.write("### Predicted Category:")
+    try:
+        # Ensure image is RGB (color)
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
 
-    # print(pred)
-    col2.header(pred)
-    # st.sidebar.markdown("\n")
-    # st.sidebar.download_button("Download fixed image", convert_image(fixed), "fixed.png", "image/png")
+        features = img2vec.get_vec(image)
+        pred = model.predict([features])[0]
+        st.header(pred)  # Display the predicted category
+    except Exception as e:
+        st.error(f"Error predicting image category: {str(e)}")
 
-
+# Layout for the app
 col1, col2 = st.columns(2)
-my_upload = st.sidebar.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+my_upload = col1.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 
+# Process uploaded image
 if my_upload is not None:
     if my_upload.size > MAX_FILE_SIZE:
         st.error("The uploaded file is too large. Please upload an image smaller than 5MB.")
     else:
-        fix_image(upload=my_upload)
+        classify_image(my_upload)
 else:
-    st.write("by Giessa Delaguinson...")
-    # fix_image("./zebra.jpg")
+    st.write("Upload an image to classify it.")
     ''')
