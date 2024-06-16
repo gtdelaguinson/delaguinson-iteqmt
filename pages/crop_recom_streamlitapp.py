@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 # Load the trained model with error handling
-filename = 'pages/new_predict.sav'
+filename = 'pages/laptops.p'
 try:
     loaded_model = joblib.load(filename)
 except FileNotFoundError:
