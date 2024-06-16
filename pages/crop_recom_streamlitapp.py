@@ -16,30 +16,32 @@ except Exception as e:
 
 # Function to predict crop based on input NPK levels
 def predict_crop(n_input, p_input, k_input):
-    if n_input == '' or p_input == '' or k_input == '':
-        return "Enter Nitrogen, Phosphorus, and Potassium:"  
-    else:
-        try:
-            # Predict using the loaded model
-            n = float(n_input)
-            p = float(p_input)
-            k = float(k_input)
-            crop_name = loaded_model.predict([[n, p, k]])
-            return crop_name[0]  # Return the predicted crop name
-        except Exception as e:
-            return f"Prediction error: {e}"
+    try:
+        # Validate inputs
+        if not isinstance(n_input, (int, float)) or not isinstance(p_input, (int, float)) or not isinstance(k_input, (int, float)):
+            return "Please enter numeric values for NPK levels."
+        
+        if n_input < 0 or p_input < 0 or k_input < 0 or n_input > 500 or p_input > 500 or k_input > 500:
+            return "Please enter values within the range of 0 to 500 for NPK levels."
+
+        # Predict using the loaded model
+        crop_name = loaded_model.predict([[n_input, p_input, k_input]])
+        return crop_name[0]  # Return the predicted crop name
+    except Exception as e:
+        return f"Prediction error: {e}"
 
 # Streamlit app
 st.title("Crop Predictor")
+st.sidebar.subheader("Enter NPK levels:")
 
-# Input fields for NPK levels
-n_input = st.text_input("Nitrogen", "")
-p_input = st.text_input("Phosphorus", "")
-k_input = st.text_input("Potassium", "")
+# Input sliders for NPK levels in the sidebar
+n_input = st.sidebar.slider("Nitrogen", 0, 500, 0)
+p_input = st.sidebar.slider("Phosphorus", 0, 500, 0)
+k_input = st.sidebar.slider("Potassium", 0, 500, 0)
 
-# Predicting the crop
+# Predicting the crop based on NPK levels
 crop_name = predict_crop(n_input, p_input, k_input)
 
-# Display the predicted crop name
-st.text("Predicted crop based on NPK levels:")
-st.text(crop_name)
+# Display the predicted crop name in the main area
+st.subheader("Predicted crop:")
+st.write(crop_name)
