@@ -8,7 +8,7 @@ from io import BytesIO
 import base64
 
 
-with open('pages/sky_condition_model.p', 'rb') as f:
+with open('animals.p', 'rb') as f:
     model = pickle.load(f)
 
 img2vec = Img2Vec()
