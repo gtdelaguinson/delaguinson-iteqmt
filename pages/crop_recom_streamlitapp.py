@@ -1,28 +1,18 @@
 import streamlit as st
 import pandas as pd
 import pickle
+from nltk.corpus import names
 
-# Load the trained model with error handling
+# Load the trained Naive Bayes classifier from the saved file
 filename = 'pages/new_predict.sav'
-try:
-    with open(filename, 'rb') as file:
-        loaded_model = pickle.load(file)
-except FileNotFoundError:
-    st.error(f"Model file not found: {filename}")
-    loaded_model = None
-except Exception as e:
-    st.error(f"An error occurred while loading the model: {e}")
-    loaded_model = None
+loaded_model = pickle.load(open(filename, 'rb'))
 
-# Function to predict laptop brand
+# # Use the model to make predictions
+@st.cache_data 
 def predict_brand(features):
-    if loaded_model is not None:
-        brand_name = loaded_model.predict([features])[0]
-        st.text(f"The predicted brand is {brand_name}")
-    else:
-        st.text("Model is not loaded.")
-
-# Streamlit app
+    st.text("The brand is " + brand_name)
+    return
+           
 st.title("Laptop Brand Predictor")
 st.subheader("Enter features to predict the laptop brand:")
 
