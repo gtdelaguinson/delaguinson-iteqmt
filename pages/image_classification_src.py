@@ -14,7 +14,7 @@ from io import BytesIO
 import base64
 
 
-with open('pages/sky_condition_model.p', 'rb') as f:
+with open('pages/animals.p', 'rb') as f:
     model = pickle.load(f)
 
 img2vec = Img2Vec()
@@ -22,25 +22,22 @@ img2vec = Img2Vec()
 
 
 ## Streamlit Web App Interface
-st.set_page_config(layout="wide", page_title="Image Classification for Weather")
+st.set_page_config(layout="wide", page_title="Image Classification for Food")
+st.write("### Image Classification for Animals!")
 
-st.write("## Let's try to see what weather is in the image!")
-st.write(
-    ":grin: We'll try to predict the weather depicted in your uploaded image :grin:"
-)
 st.sidebar.write("## Upload and download :gear:")
 
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 # Download the fixed image
-@st.cache_data 
+# @st.cache_data 
 def convert_image(img):
     buf = BytesIO()
     img.save(buf, format="jpg")
     byte_im = buf.getvalue()
     return byte_im
 
-@st.cache_data 
+# @st.cache_data 
 def fix_image(upload):
     image = Image.open(upload)
     col1.write("Image to be predicted :camera:")
@@ -67,7 +64,4 @@ if my_upload is not None:
         st.error("The uploaded file is too large. Please upload an image smaller than 5MB.")
     else:
         fix_image(upload=my_upload)
-else:
-    st.write("by koalatech...")
-    # fix_image("./zebra.jpg")
     ''')
