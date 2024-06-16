@@ -4,10 +4,10 @@ from img2vec_pytorch import Img2Vec
 import streamlit as st
 
 # Setting page configuration
-st.set_page_config(layout="wide", page_title="Image Classification for Foods")
+st.set_page_config(layout="wide", page_title="Image Classification for Colors")
 
 # Title and description
-st.write("## Image Classification Model for Foods")
+st.write("## Image Classification Model for Colors")
 st.write(":grin: Predicting food categories from uploaded images :grin:")
 
 # Sidebar for uploading images
@@ -15,7 +15,7 @@ st.sidebar.write("## Upload an Image")
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB maximum file size
 
 # Load the pre-trained model
-model_file = '/content/model_needs_npk.p'
+model_file = '/pages/model_needs_npk.p'
 try:
     with open(model_file, 'rb') as f:
         model = pickle.load(f)
