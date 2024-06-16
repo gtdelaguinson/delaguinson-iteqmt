@@ -16,24 +16,27 @@ except Exception as e:
 
 # Function to predict crop based on input NPK levels
 def predict_crop(n_input, p_input, k_input):
-    if n_input == 0 and p_input == 0 and k_input == 0:
-        return "Please enter non-zero values for NPK levels."  # Informative message for empty input
+    if n_input == '' or p_input == '' or k_input == '':
+        return "Please enter values for all NPK levels."  # Informative message for empty input
     else:
         try:
             # Predict using the loaded model
-            crop_name = loaded_model.predict([[n_input, p_input, k_input]])
+            n = float(n_input)
+            p = float(p_input)
+            k = float(k_input)
+            crop_name = loaded_model.predict([[n, p, k]])
             return crop_name[0]  # Return the predicted crop name
         except Exception as e:
             return f"Prediction error: {e}"
 
 # Streamlit app
 st.title("Crop Recommendation Predictor 😊")
-st.subheader("Enter a set of NPK levels to determine the best crop:")
+st.subheader("Enter NPK levels to determine the best crop:")
 
-# Input sliders for NPK levels
-n_input = st.slider("Nitrogen", 0, 500)
-p_input = st.slider("Phosphorus", 0, 500)
-k_input = st.slider("Potassium", 0, 500)
+# Input fields for NPK levels
+n_input = st.text_input("Nitrogen", "")
+p_input = st.text_input("Phosphorus", "")
+k_input = st.text_input("Potassium", "")
 
 # Predicting the crop
 crop_name = predict_crop(n_input, p_input, k_input)
