@@ -44,7 +44,7 @@ for personal and professional growth.
 ### 🔎 Overview""", unsafe_allow_html=True)
 
 
-st.image("./sentiment_analyzer.png")
+st.image("./IMAGE2.png")
 
 
 st.markdown("""
