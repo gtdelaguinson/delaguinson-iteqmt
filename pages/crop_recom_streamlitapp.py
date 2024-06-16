@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 # Load the trained model with error handling
-filename = 'pages/predict.sav'
+filename = 'pages/new_predict.sav'
 try:
     with open(filename, 'rb') as file:
         loaded_model = pickle.load(file)
