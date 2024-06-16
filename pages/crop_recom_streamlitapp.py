@@ -15,19 +15,20 @@ loaded_model = pickle.load(open(filename, 'rb'))
 # # Use the model to make predictions
 @st.cache_data 
 def predict_crop():
-    st.text("The crop is " + crop_name)
+    st.text("The brand is " + brand_name)
     return
            
-st.title("Crop Recommendation Predictor :smile:")
-st.subheader("Enter a set of NPK levels to determine what crop best fits:")
-n_input = st.slider("Nitrogen: ",0,500)
-p_input = st.slider("Phosphorus: ",0,500)
-k_input = st.slider("Potassium: ",0,500)
-if n_input == 0 & p_input == 0 & k_input == 0:
-    crop_name = ""
+st.title("Brand Predictor")
+st.subheader("Input Features:")
+price_input = st.slider("Price:", 0.0, 20000.0)
+rating_input = st.slider("Rating:", 0.0, 20.0)
+ram_input = st.slider("RAM (GB):", 0, 32)
+if st.button("Predict Brand"):
+    features = [price_input, rating_input, ram_input]
+    predict_brand(features)
 else:
     crop_name = loaded_model.predict([[pd.to_numeric(n_input),pd.to_numeric(p_input),pd.to_numeric(k_input)]])
 
-st.text("The crop suitable for this NPK level:")
+st.text("The predicted brand will be displayed above.")
 st.text_area(label ="",value=crop_name, height =100)
 # st.button('Predict', on_click=predict_crop
