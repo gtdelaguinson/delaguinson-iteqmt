@@ -14,7 +14,7 @@ st.set_page_config(layout="wide", page_title="Image Classification for Colors")
 
 # Title and description
 st.write("## Image Classification Model for Colors")
-st.write(":grin: Predicting food categories from uploaded images :grin:")
+st.write(":grin: Predicting colors from uploaded images :grin:")
 
 # Sidebar for uploading images
 st.sidebar.write("## Upload an Image")
