@@ -35,9 +35,10 @@ def display_page_titles():
     ## About Me
 
     I am a curious and compassionate individual who loves to explore new ideas and connect with others. My passion for learning drives me to constantly seek out knowledge and understanding. I believe in the power of kindness and empathy to make a positive impact in the world.
-    In our quantitative methods class, I've learned how to analyze data using statistical techniques. I've gained skills in using software tools for data analysis and interpreting results. Additionally, I've understood the importance of applying these methods to real-world problems for informed decision-making.
     """, unsafe_allow_html=True)
-
+    st.markdown("""
+In our quantitative methods class, I've learned how to analyze data using statistical techniques. I've gained skills in using software tools for data analysis and interpreting results. Additionally, I've understood the importance of applying these methods to real-world problems for informed decision-making.
+    """, unsafe_allow_html=True)
 # Define pages and sections
 add_page_title()
 show_pages([
