@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 # Load the trained model with error handling
-filename = 'pages/laptops.p'
+filename = 'pages/laptops.csv'
 try:
     loaded_model = joblib.load(filename)
 except FileNotFoundError:
