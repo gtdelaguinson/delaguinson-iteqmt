@@ -15,7 +15,7 @@ st.sidebar.write("## Upload an Image")
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB maximum file size
 
 # Load the pre-trained model
-model_file = '/pages/model_needs_npk.p'
+model_file = 'pages/model_needs_npk.p'
 try:
     with open(model_file, 'rb') as f:
         model = pickle.load(f)
