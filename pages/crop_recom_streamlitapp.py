@@ -1,20 +1,30 @@
 import streamlit as st
-import pandas as pd
 import pickle
-from nltk.corpus import names
 
 # Load the trained Naive Bayes classifier from the saved file
 filename = 'pages/crop_recom_model.sav'
-loaded_model = pickle.load(open(filename, 'rb'))
+
+try:
+    with open(filename, 'rb') as file:
+        loaded_model = pickle.load(file)
+except FileNotFoundError:
+    st.error(f"Model file '{filename}' not found. Please make sure the file path is correct.")
+    st.stop()
+except Exception as e:
+    st.error(f"Error loading model: {e}")
+    st.stop()
 
 # Function to predict crop based on input NPK levels
 def predict_crop(n_input, p_input, k_input):
     if n_input == 0 and p_input == 0 and k_input == 0:
-        return ""  # Return empty string if all inputs are zero
+        return "Please enter non-zero values for NPK levels."  # Informative message for empty input
     else:
-        # Predict using the loaded model
-        crop_name = loaded_model.predict([[n_input, p_input, k_input]])
-        return crop_name[0]  # Return the predicted crop name
+        try:
+            # Predict using the loaded model
+            crop_name = loaded_model.predict([[n_input, p_input, k_input]])
+            return crop_name[0]  # Return the predicted crop name
+        except Exception as e:
+            return f"Prediction error: {e}"
 
 # Streamlit app
 st.title("Crop Recommendation Predictor 😊")
@@ -29,7 +39,5 @@ k_input = st.slider("Potassium", 0, 500)
 crop_name = predict_crop(n_input, p_input, k_input)
 
 # Display the predicted crop name
-st.text("The crop suitable for this NPK level:")
-st.text_area(label="", value=crop_name, height=1)
-
-# Note: No need for st.cache_data decorator here as we are not caching the function predict_crop itself
+st.text("Predicted crop based on NPK levels:")
+st.text(crop_name)
